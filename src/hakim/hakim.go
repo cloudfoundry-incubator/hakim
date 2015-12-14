@@ -10,6 +10,8 @@ import (
 
 var requiredProcesses = []string{"consul.exe", "containerizer.exe", "garden-windows.exe", "rep.exe", "metron.exe"}
 
+var bbsConsulHost = "bbs.service.cf.internal"
+
 func main() {
 	gardenAddr := flag.String("gardenAddr", "localhost:9241", "Garden host and port (typically localhost:9241)")
 	flag.Parse()
@@ -24,6 +26,11 @@ func main() {
 	}
 
 	err = checks.ContainerCheck(*gardenAddr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = checks.ConsulDnsCheck(bbsConsulHost)
 	if err != nil {
 		log.Fatal(err)
 	}
