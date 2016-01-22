@@ -9,8 +9,8 @@ import (
 
 var _ = Describe("Consul DNS checks", func() {
 	It("returns an error when host is not known", func() {
-		err := ConsulDnsCheck("host-non-existing.")
-		Expect(err).To(MatchError("Failed to resolve consul host host-non-existing.\nlookup host-non-existing.: getaddrinfow: No such host is known."))
+		err := ConsulDnsCheck("non-existent.example.com.")
+		Expect(err.Error()).To(ContainSubstring("Failed to resolve consul host non-existent.example.com."))
 	})
 
 	It("does not return an error when host is known", func() {
