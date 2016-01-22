@@ -34,4 +34,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = checks.FairShareCpuCheck()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
