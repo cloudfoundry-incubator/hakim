@@ -39,4 +39,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = checks.FirewallCheck()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
