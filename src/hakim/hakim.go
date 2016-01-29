@@ -44,4 +44,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = checks.NTPCheck()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
