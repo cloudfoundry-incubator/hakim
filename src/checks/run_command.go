@@ -5,7 +5,7 @@ import (
 	"os/exec"
 )
 
-func runCommand(cmd string) (string, string, error) {
+func RunCommand(cmd string) (string, string, error) {
 	execCmd := exec.Command("powershell", "-noprofile", "-noninteractive", "-command", cmd)
 
 	var stdout bytes.Buffer

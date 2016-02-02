@@ -10,7 +10,7 @@ netsh advfirewall show currentprofile state | Select-String -Quiet ON
 `
 
 func FirewallCheck() error {
-	stdout, _, err := runCommand(CheckFirewallSetting)
+	stdout, _, err := RunCommand(CheckFirewallSetting)
 	if err != nil {
 		return err
 	} else if strings.TrimSpace(stdout) != "True" {

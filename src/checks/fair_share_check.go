@@ -10,7 +10,7 @@ const CheckFairShareCpuSetting = `
 `
 
 func FairShareCpuCheck() error {
-	stdout, _, err := runCommand(CheckFairShareCpuSetting)
+	stdout, _, err := RunCommand(CheckFairShareCpuSetting)
 	if err != nil {
 		return err
 	} else if strings.TrimSpace(stdout) != "0" {
