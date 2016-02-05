@@ -18,37 +18,37 @@ func main() {
 	flag.Parse()
 
 	processes, err := ps.Processes()
-	if err != nil {
-		panic(err)
-	}
-
-	err = checks.ProcessCheck(processes, requiredProcesses)
-	if err != nil {
-		log.Fatal(err)
+	if err == nil {
+		err = checks.ProcessCheck(processes, requiredProcesses)
+		if err != nil {
+			log.Print(err)
+		}
+	} else {
+		log.Print(err)
 	}
 
 	err = checks.ContainerCheck(*gardenAddr)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	err = checks.ConsulDnsCheck(bbsConsulHost)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	err = checks.FairShareCpuCheck()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	err = checks.FirewallCheck()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	err = checks.NtpCheck()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 }
