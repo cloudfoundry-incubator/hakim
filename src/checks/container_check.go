@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	localLogonFailure = "Logon failure: the user has not been granted the requested logon type at this computer"
-	stevensFailure    = "Logon failure: the user created by Containerizer has not been granted the requested logon type at this computer. Local accounts require permissions to logon locally."
+	localLogonFailure              = "Logon failure: the user has not been granted the requested logon type at this computer"
+	operatorFriendlyFailureMessage = "Logon failure: the user created by Containerizer has not been granted the requested logon type at this computer. Local accounts require permissions to logon locally."
 )
 
 func ContainerCheck(gardenAddr string) error {
@@ -22,7 +22,7 @@ func ContainerCheck(gardenAddr string) error {
 
 	if err != nil {
 		if err.Error() == localLogonFailure {
-			return errors.New("Failed to create container\n" + stevensFailure)
+			return errors.New("Failed to create container\n" + operatorFriendlyFailureMessage)
 		} else {
 			return errors.New("Failed to create container\n" + err.Error())
 		}
