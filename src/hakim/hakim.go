@@ -27,7 +27,7 @@ func main() {
 		log.Print(err)
 	}
 
-	err = checks.ContainerCheck(*gardenAddr)
+	err = checks.ContainerCheck(*gardenAddr, processes)
 	if err != nil {
 		log.Print(err)
 	}
