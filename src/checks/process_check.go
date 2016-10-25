@@ -12,11 +12,14 @@ func ProcessCheck(processes []ps.Process, requiredProcessNames []string) error {
 	for _, process := range processes {
 		processName := strings.ToUpper(process.Executable())
 
+		var n int
 		for i, requiredProcessName := range requiredProcessNames {
 			if strings.Contains(processName, strings.ToUpper(requiredProcessName)) {
-				requiredProcessNames = append(requiredProcessNames[:i], requiredProcessNames[i+1:]...)
+				requiredProcessNames[n] = requiredProcessNames[i]
+				n++
 			}
 		}
+		requiredProcessNames = requiredProcessNames[:n]
 	}
 
 	if len(requiredProcessNames) > 0 {
