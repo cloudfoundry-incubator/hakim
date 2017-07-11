@@ -8,22 +8,24 @@ import (
 )
 
 func ProcessCheck(processes []ps.Process, requiredProcessNames []string) error {
+	missingProcesses := []string{}
 
-	for _, process := range processes {
-		processName := strings.ToUpper(process.Executable())
-
-		var n int
-		for i, requiredProcessName := range requiredProcessNames {
-			if strings.Contains(processName, strings.ToUpper(requiredProcessName)) {
-				requiredProcessNames[n] = requiredProcessNames[i]
-				n++
+	for _, requiredProcessName := range requiredProcessNames {
+		missing := true
+		for _, process := range processes {
+			if strings.Contains(strings.ToUpper(process.Executable()), strings.ToUpper(requiredProcessName)) {
+				missing = false
+				break
 			}
 		}
-		requiredProcessNames = requiredProcessNames[:n]
+
+		if missing {
+			missingProcesses = append(missingProcesses, requiredProcessName)
+		}
 	}
 
-	if len(requiredProcessNames) > 0 {
-		return errors.New("The following processes are not running: " + strings.Join(requiredProcessNames, ", "))
+	if len(missingProcesses) > 0 {
+		return errors.New("The following processes are not running: " + strings.Join(missingProcesses, ", "))
 	}
 	return nil
 }
